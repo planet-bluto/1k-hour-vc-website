@@ -120,10 +120,10 @@ const UserStore = {
 
               switch (currentState) {
                 case UserState.SPEAKING:
-                  console.log("+ Speaking: ", msToTime(addedTime))
+                  // console.log("+ Speaking: ", msToTime(addedTime))
                 break;
                 case UserState.MESSAGING:
-                  console.log("+ Messaging: ", msToTime(addedTime))
+                  // console.log("+ Messaging: ", msToTime(addedTime))
                 break;
               }
               
@@ -140,7 +140,7 @@ const UserStore = {
           if (activeStartTimestamp != null && entry.chained_entry == null) {
             var addedTime = (entry.timestamp - activeStartTimestamp)
             activeTime += addedTime
-            console.log("+ Speaking: ", msToTime(addedTime))
+            // console.log("+ Speaking: ", msToTime(addedTime))
             activeStartTimestamp = null
           }
         break;
@@ -155,7 +155,7 @@ const UserStore = {
           } else if (activeStartTimestamp != null) {
             var addedTime = (entry.timestamp - activeStartTimestamp)
             activeTime += addedTime
-            console.log("+ Messaging: ", msToTime(addedTime))
+            // console.log("+ Messaging: ", msToTime(addedTime))
             activeStartTimestamp = null
           }
         break;
