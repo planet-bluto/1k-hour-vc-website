@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    // "target": "ESNext",
-    // "module": "ESNext",
-    // "moduleResolution": "Bundler",
-    // "strict": true,
-    // "types": [
-    //   "node"
-    // ],
+    "target": "ES5",
+    "module": "CommonJS",
+    "outDir": "out",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node"
+    ],
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx",
-  }
+    "jsxImportSource": "hono/jsx"
+  },
+  "include": ["src/*"]
 }

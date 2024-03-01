@@ -13,7 +13,7 @@ app.get('/', (c) => {
 const port = 2258
 console.log(`Server is running on port ${port}`)
 
-// push6
+// push
 
 serve({
   fetch: app.fetch,
