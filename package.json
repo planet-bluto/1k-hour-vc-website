@@ -2,7 +2,6 @@
   "scripts": {
     "start": "tsx src/index.tsx",
     "dev": "tsx watch src/index.tsx",
-    "build": "tsx tsconfig.json",
     "discord": "tsx watch src/discord.ts"
   },
   "dependencies": {

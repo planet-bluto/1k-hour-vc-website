@@ -23,6 +23,14 @@ function msToTime(duration) {
 client.on('ready', async () => {
   console.log(`${client.user.username} is ready!`)
 
+  UserStore.list().then(result => {
+    var userIds = Object.keys(result)
+    userIds.forEach(async userId => {
+      UserStore.track(userId, "stop_speaking")
+      UserStore.track(userId, "leave")
+    })
+  })
+
   client.on("voiceStateUpdate", async (oldState, newState) => {
     var oldStateInVC = (oldState?.channelId == process.env["voice_channel"])
     var newStateInVC = (newState?.channelId == process.env["voice_channel"])
@@ -66,25 +74,14 @@ client.on('ready', async () => {
     }
   })
 
+  var connection = await joinVC()
+
   client.channels.fetch(process.env["voice_channel"]).then((channel: VoiceChannel) => {
-    var includedIds: any[] = []
-
     Array.from(channel.members.keys()).forEach(async (userId: string) => {
-      includedIds.push(userId)
       console.log(`• ${userId} already in VC...`)
-      UserStore.track(userId, "join")
-    })
-
-    UserStore.list().then(result => {
-      var userIds = Object.keys(result)
-      userIds.forEach(async userId => {
-        UserStore.track(userId, "stop_speaking")
-        if (!includedIds.includes(userId)) { UserStore.track(userId, "leave") }
-      })
+      await UserStore.track(userId, "join")
     })
   })
-
-  var connection = await joinVC()
 
   // Array.from(connection.receiver.speaking.users.keys()).forEach(async userId => {
   //   console.log(`• ${userId} already in VC...`)
