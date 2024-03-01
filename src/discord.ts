@@ -83,10 +83,10 @@ client.on('ready', async () => {
     })
   })
 
-  Array.from(connection.receiver.speaking.users.keys()).forEach(async userId => {
-    console.log(`• ${userId} already in VC...`)
-    await UserStore.track(userId, "join")
-  })
+  // Array.from(connection.receiver.speaking.users.keys()).forEach(async userId => {
+  //   console.log(`• ${userId} already in VC...`)
+  //   await UserStore.track(userId, "join")
+  // })
 
   connection.receiver.speaking.on("start", async userId => {
     await UserStore.track(userId, "start_speaking")
