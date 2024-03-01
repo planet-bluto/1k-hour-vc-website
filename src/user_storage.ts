@@ -70,18 +70,21 @@ const UserStore = {
       return (a.timestamp - b.timestamp)
     })
     UserDB.data.tracking.forEach(entry => {
-      var chained_entry = UserDB.data.tracking.find(thisEntry => (chain_types.includes(thisEntry.type) && (thisEntry.timestamp > entry.timestamp) && (thisEntry.timestamp < (entry.timestamp + ACTIVE_BUFFER))))
-      entry.chained_entry = chained_entry
-      trackingWithBuffers.push(entry)
       switch (entry.type) {
         case "stop_speaking":
-          trackingWithBuffers.push({type: "buffer_speaking", timestamp: (entry.timestamp + ACTIVE_BUFFER)})
+          var speak_chained_entry = UserDB.data.tracking.find(thisEntry => (chain_types.includes(thisEntry.type) && (thisEntry.timestamp > entry.timestamp) && (thisEntry.timestamp < (entry.timestamp + SPEAKING_BUFFER))))
+          entry.chained_entry = speak_chained_entry
+          trackingWithBuffers.push({type: "buffer_speaking", timestamp: (entry.timestamp + SPEAKING_BUFFER)})
         break;
         case "message":
+          var msg_chained_entry = UserDB.data.tracking.find(thisEntry => (chain_types.includes(thisEntry.type) && (thisEntry.timestamp > entry.timestamp) && (thisEntry.timestamp < (entry.timestamp + MESSAGE_BUFFER))))
+          entry.chained_entry = msg_chained_entry
           messageCount += 1
-          trackingWithBuffers.push({type: "buffer_message", timestamp: (entry.timestamp + ACTIVE_BUFFER)})
+          trackingWithBuffers.push({type: "buffer_message", timestamp: (entry.timestamp + MESSAGE_BUFFER)})
         break;
       }
+
+      trackingWithBuffers.push(entry)
     })
 
     // hai
