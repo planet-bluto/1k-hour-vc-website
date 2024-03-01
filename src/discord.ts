@@ -23,6 +23,14 @@ function msToTime(duration) {
 client.on('ready', async () => {
   console.log(`${client.user.username} is ready!`)
 
+  UserStore.list().then(result => {
+    var userIds = Object.keys(result)
+    userIds.forEach(async userId => {
+      UserStore.track(userId, "stop_speaking")
+      UserStore.track(userId, "leave")
+    })
+  })
+
   client.on("voiceStateUpdate", async (oldState, newState) => {
     var oldStateInVC = (oldState?.channelId == process.env["voice_channel"])
     var newStateInVC = (newState?.channelId == process.env["voice_channel"])
