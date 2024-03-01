@@ -57,6 +57,13 @@ const ACLURoot = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet"/>
+
+        <title>ACULT 1K HOUR VC WEB PANEL</title>
+
+        <meta content="ACULT 1K HOUR VC WEB PANEL" property="og:title" />
+	      <meta content="🟣 ‼ DOUBTERS STAY OUT ‼ 🟣" property="og:description" />
+	      <meta name="theme-color" content="#785db3" />
+        <meta name="msapplication-TileColor" content="#785db3" />
         <Style />
       </head>
       <body class={ACLURootStyle}>
