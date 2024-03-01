@@ -15,7 +15,7 @@ function msToTime(duration) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
-const LeaderboardEntry = async ({userId, times, ind}) => {
+const LeaderboardEntry = async ({userId, times, ind, last = false}) => {
   const LeaderboardEntryStyle = css`
   display: grid;
   background: #353535;
@@ -26,6 +26,7 @@ const LeaderboardEntry = async ({userId, times, ind}) => {
   gap: 15px;
   border-radius: 30px;
   align-items: center;
+  ${(last ? `margin-bottom: 30px;` : ``)}
   `
   const LeaderboardEmblemStyle = css`
   width: 60px;
@@ -33,9 +34,10 @@ const LeaderboardEntry = async ({userId, times, ind}) => {
   margin: 10px;
   `
   const LeaderboardNumberStyle = css`
+  color: #7c7c7c;
+  font-size: 48px;
   text-align: center;
   margin: 0px;
-  font-size: 48px;
   `
   const LeaderboardEntryAvatarStyle = css`
   border-radius: 50%;
@@ -91,7 +93,6 @@ const Leaderboard = async () => {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   top: calc(64px + 15px);
   `
 
@@ -101,7 +102,7 @@ const Leaderboard = async () => {
     <div class={LeaderboardStyle}>
       {Object.keys(users).map((userId, ind) => {
         var times = users[userId]
-        return (<LeaderboardEntry userId={userId} times={times} ind={ind}/>)
+        return (<LeaderboardEntry userId={userId} times={times} ind={ind} last={(ind == Object.keys(users).length-1)}/>)
       })}
     </div>
   )
