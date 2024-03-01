@@ -3,7 +3,7 @@ console.log("Initializing...")
 import 'dotenv/config'
 
 import { joinVoiceChannel } from '@discordjs/voice'
-import { Client } from 'discord.js-selfbot-v13'
+import { Client, GuildMember, VoiceChannel } from 'discord.js-selfbot-v13'
 const client = new Client()
 import UserStore from './user_storage'
 
@@ -29,8 +29,9 @@ client.on('ready', async () => {
     var userId = (newState.user.id || oldState.user.id)
 
     if (oldStateInVC && newStateInVC) {
-      console.log(`• ${userId} already in VC...`)
-      await UserStore.track(userId, "join")
+      console.log(`• Me already in the VC as fuck`)
+      // console.log(`• ${userId} already in VC...`)
+      // await UserStore.track(userId, "join")
     } // Already in VC
 
     if (!oldStateInVC && newStateInVC) { // Joined VC
@@ -67,7 +68,17 @@ client.on('ready', async () => {
 
   var connection = await joinVC()
 
-  console.log(connection.eventNames())
+  client.channels.fetch(process.env["voice_channel"]).then((channel: VoiceChannel) => {
+    Array.from(channel.members.keys()).forEach(async (userId: string) => {
+      console.log(`• ${userId} already in VC...`)
+      await UserStore.track(userId, "join")
+    })
+  })
+
+  Array.from(connection.receiver.speaking.users.keys()).forEach(async userId => {
+    console.log(`• ${userId} already in VC...`)
+    await UserStore.track(userId, "join")
+  })
 
   connection.receiver.speaking.on("start", async userId => {
     await UserStore.track(userId, "start_speaking")

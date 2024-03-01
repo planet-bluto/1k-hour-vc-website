@@ -114,6 +114,21 @@ const UserStore = {
           if (joinedTimestamp != null) {
             totalTime += (entry.timestamp - joinedTimestamp)
             joinedTimestamp = null
+            if (activeStartTimestamp != null) {
+              var addedTime = (entry.timestamp - activeStartTimestamp)
+              activeTime += addedTime
+
+              switch (currentState) {
+                case UserState.SPEAKING:
+                  console.log("+ Speaking: ", msToTime(addedTime))
+                break;
+                case UserState.MESSAGING:
+                  console.log("+ Messaging: ", msToTime(addedTime))
+                break;
+              }
+              
+              activeStartTimestamp = null
+            }
           }
         break;
         case "start_speaking":
