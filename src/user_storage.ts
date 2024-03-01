@@ -107,7 +107,7 @@ const UserStore = {
       trackingWithBuffers.push({type: "stop_speaking", timestamp: Date.now()})
     }
 
-    if (trackingWithBuffers[trackingWithBuffers.length -1].type != "leave") {
+    if (trackingWithBuffers[trackingWithBuffers.length -1]?.type != "leave") {
       trackingWithBuffers.push({type: "leave", timestamp: Date.now()})
     }
 
