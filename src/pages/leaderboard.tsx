@@ -96,7 +96,7 @@ const Leaderboard = async () => {
   top: calc(64px + 15px);
   `
 
-  var users: any = await UserStore.list()
+  var users = await UserStore.list()
 
   return (
     <div class={LeaderboardStyle}>
