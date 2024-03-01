@@ -13,15 +13,7 @@ app.get('/', (c) => {
 const port = 2258
 console.log(`Server is running on port ${port}`)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-// push
-=======
 // push2
->>>>>>> parent of c430967 (Last Leaderboard entry styling)
-=======
-// push2
->>>>>>> parent of c430967 (Last Leaderboard entry styling)
 
 serve({
   fetch: app.fetch,
