@@ -157,7 +157,14 @@ const UserStore = {
     })
 
     temp_arr.sort((a, b) => {
-      return (b.times.totalTime - a.times.totalTime)
+      const calcVal = (obj) => {
+        return ((obj.times.activeTime * 100) + obj.times.totalTime)
+      }
+      
+      var a_val = calcVal(a)
+      var b_val = calcVal(b)
+
+      return (b_val - a_val)
     })
 
     var return_obj = {}

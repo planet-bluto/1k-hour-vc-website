@@ -22,7 +22,7 @@ const LeaderboardEntry = async ({userId, times, ind}) => {
   padding: 15px;
   margin: 15px;
   width: calc(100vw - 30px - 30px - 15px);
-  grid-template-columns: 80px 80px auto 160px;
+  grid-template-columns: 80px 80px auto 160px 160px;
   gap: 15px;
   border-radius: 30px;
   align-items: center;
@@ -41,9 +41,19 @@ const LeaderboardEntry = async ({userId, times, ind}) => {
   font-size: 32px;
   margin: 0px;
   `
-  const LeaderboardEntryTimeStyle = css`
+  const LeaderboardEntryActiveTimeStyle = css`
+  color: var(--accent);
   font-size: 32px;
   margin: 0px;
+  width: 100%;
+  text-align: center;
+  `
+  const LeaderboardEntryTotalTimeStyle = css`
+  color: #7c7c7c;
+  font-size: 32px;
+  margin: 0px;
+  width: 100%;
+  text-align: center;
   `
 
   const Emblems = {
@@ -57,14 +67,15 @@ const LeaderboardEntry = async ({userId, times, ind}) => {
   var userObj = await client.users.fetch(userId)
   var displayName = userObj.displayName
 
-  var emblem = (Emblems[String(ind)] || "")
+  var emblem = (Emblems[String(ind)] || "https://file.garden/ZMStwW5nmTe-x3P5/invis.png")
 
   return (
     <div class={LeaderboardEntryStyle}>
       <img class={LeaderboardEmblemStyle} src={emblem} alt={userObj.username}></img>
       <img class={LeaderboardEntryAvatarStyle} src={userObj.displayAvatarURL({size: 512, format: "png"})} alt={userObj.username}></img>
       <p class={LeaderboardEntryUsernameStyle}>{displayName}</p>
-      <p class={LeaderboardEntryTimeStyle}>{msToTime(times.totalTime)}</p>
+      <p class={LeaderboardEntryTotalTimeStyle}>{msToTime(times.totalTime)}</p>
+      <p class={LeaderboardEntryActiveTimeStyle}>{msToTime(times.activeTime)}</p>
     </div>
   )
 }
