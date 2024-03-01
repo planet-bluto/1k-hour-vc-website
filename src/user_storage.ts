@@ -97,6 +97,10 @@ const UserStore = {
     var joinedTimestamp = null
     // console.log(trackingWithBuffers)
 
+    if (trackingWithBuffers.findIndex(entry => entry.type == "start_speaking") != -1) {
+      trackingWithBuffers.push({type: "stop_speaking", timestamp: Date.now()})
+    }
+
     if (trackingWithBuffers[trackingWithBuffers.length -1].type != "leave") {
       trackingWithBuffers.push({type: "leave", timestamp: Date.now()})
     }
@@ -118,7 +122,7 @@ const UserStore = {
           currentState = UserState.SPEAKING
         break;
         case "stop_speaking":
-          if (entry.chained_entry == null) {
+          if (activeStartTimestamp != null && entry.chained_entry == null) {
             var addedTime = (entry.timestamp - activeStartTimestamp)
             activeTime += addedTime
             console.log("+ Speaking: ", msToTime(addedTime))
