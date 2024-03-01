@@ -12,7 +12,8 @@ DB.default({
 import TaskManager from "task-manager"
 var TaskManagers = {}
 
-const ACTIVE_BUFFER = (((1000) * 60) * 0.5)
+const SPEAKING_BUFFER = (((1000) * 60) * 0.5)
+const MESSAGE_BUFFER = (((1000) * 60) * 5)
 
 type TrackingType = ( "join" | "leave" | "start_speaking" | "stop_speaking" | "message" )
 
@@ -82,6 +83,8 @@ const UserStore = {
         break;
       }
     })
+
+    // hai
 
     trackingWithBuffers.sort((a, b) => {
       return (a.timestamp - b.timestamp)
