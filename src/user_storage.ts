@@ -9,6 +9,9 @@ DB.default({
   return key.startsWith("user/")
 })
 
+import TaskManager from "task-manager"
+var TaskManagers = {}
+
 const ACTIVE_BUFFER = (((1000) * 60) * 0.5)
 
 type TrackingType = ( "join" | "leave" | "start_speaking" | "stop_speaking" | "message" )
@@ -32,10 +35,14 @@ const UserStore = {
     var UserDB = await DB.fetch(`user/${id}`)
     return {data: UserDB.data, UserDB: UserDB}
   },
-  track: async function(id: String, type: TrackingType, timestamp = Date.now()) {
-    var {UserDB} = await this.get(id)
-    UserDB.data.tracking.push({type, timestamp})
-    await UserDB.write()
+  track: async function(id: string, type: TrackingType, timestamp = Date.now()) {
+    if (TaskManagers[id] == null) { TaskManagers[id] = new TaskManager() }
+
+    await TaskManagers[id].add(async () => {
+      var {UserDB} = await this.get(id)
+      UserDB.data.tracking.push({type, timestamp})
+      await UserDB.write()
+    })
   },
   times: async function(id: (String | Object), isDB: boolean = false) {
     if (!isDB) {
