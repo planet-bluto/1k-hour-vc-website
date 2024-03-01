@@ -108,7 +108,7 @@ const UserStore = {
     trackingWithBuffers.forEach(entry => {
       switch (entry.type) {
         case "join":
-          if (joinedTimestamp == null) { joinedTimestamp = entry.timestamp }
+          joinedTimestamp = entry.timestamp
         break;
         case "leave":
           if (joinedTimestamp != null) {
@@ -126,7 +126,7 @@ const UserStore = {
                   console.log("+ Messaging: ", msToTime(addedTime))
                 break;
               }
-              
+
               activeStartTimestamp = null
             }
           }
