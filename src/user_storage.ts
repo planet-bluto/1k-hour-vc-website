@@ -9,7 +9,7 @@ DB.default({
   return key.startsWith("user/")
 })
 
-const ACTIVE_BUFFER = (((1000) * 60) * 5)
+const ACTIVE_BUFFER = (((1000) * 60) * 0.5)
 
 type TrackingType = ( "join" | "leave" | "start_speaking" | "stop_speaking" | "message" )
 
@@ -160,7 +160,7 @@ const UserStore = {
       const calcVal = (obj) => {
         return ((obj.times.activeTime * 100) + obj.times.totalTime)
       }
-      
+
       var a_val = calcVal(a)
       var b_val = calcVal(b)
 
