@@ -87,7 +87,7 @@ const UserStore = {
       trackingWithBuffers.push(entry)
     })
 
-    // hai
+    // hai2
 
     trackingWithBuffers.sort((a, b) => {
       return (a.timestamp - b.timestamp)
